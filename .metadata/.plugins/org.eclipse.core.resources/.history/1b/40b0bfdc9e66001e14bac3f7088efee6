@@ -1,0 +1,22 @@
+package com.capg.policyapp.service;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
+
+import com.capg.policyapp.exception.InvalidEntityException;
+import com.capg.policyapp.model.Policy;
+
+public interface PolicyService {
+	
+	public Policy addPolicy (Policy policy, String customerId, String schemeId) throws InvalidEntityException ;
+	public Policy updatePolicyStatus (String policyId, String policyStatus) throws InvalidEntityException;
+	public List<Policy> viewAllPolicies();
+	public Policy viewPolicyById (Policy policyId);
+	public List<Policy> viewPoliciesByPolicyStatus(Policy policyStatus);
+	public List<Policy> viewPoliciesByScheme (String schemeId);
+	public List<Policy> viewPoliciesByPaymentDate (LocalDate paymentDate);
+	public Map<String, Integer> getTotalClaimAmountPolicyWise();
+	
+
+}

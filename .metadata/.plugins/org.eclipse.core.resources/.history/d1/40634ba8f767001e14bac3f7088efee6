@@ -1,0 +1,158 @@
+package com.example.demo;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+
+import com.capg.policyapp.dao.PolicyDAO;
+import com.capg.policyapp.exception.InvalidEntityException;
+import com.capg.policyapp.model.Policy;
+import com.capg.policyapp.service.PolicyServiceImpl;
+
+public class PolicyServiceImplTest {
+	
+	@InjectMocks
+    private PolicyServiceImpl policyService;
+
+    @Mock
+    private PolicyDAO policyDao;
+
+    @Test
+    public void testAddPolicy() throws InvalidEntityException {
+        // Arrange
+        Policy policy = new Policy();
+        String customerId = "123";
+        String schemeId = "456";
+
+        when(policyDao.addPolicy((policy), (customerId), (schemeId))).thenReturn(policy);
+
+        // Act
+        Policy addedPolicy = policyService.addPolicy(policy, customerId, schemeId);
+
+        // Assert
+        assertNotNull(addedPolicy);
+        assertEquals(policy, addedPolicy);
+    }
+
+    @Test
+    public void testUpdatePolicyStatus() throws InvalidEntityException {
+        // Arrange
+        String policyId = "789";
+        String policyStatus = "Active";
+        Policy updatedPolicy = new Policy();
+
+        when(policyDao.updatePolicyStatus((policyId), (policyStatus))).thenReturn(updatedPolicy);
+
+        // Act
+        Policy result = policyService.updatePolicyStatus(policyId, policyStatus);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(updatedPolicy, result);
+    }
+
+    @Test
+    public void testViewAllPolicies() {
+        // Arrange
+        List<Policy> policies = new ArrayList<>();
+
+        when(policyDao.viewAllPolicies()).thenReturn(policies);
+
+        // Act
+        List<Policy> result = policyService.viewAllPolicies();
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(policies, result);
+    }
+
+    @Test
+    public void testViewPolicyById() throws InvalidEntityException {
+        // Arrange
+        String policyId = "123";
+        Policy policy = new Policy();
+
+        when(policyDao.viewPolicyById((policyId))).thenReturn(policy);
+
+        // Act
+        Policy result = policyService.viewPolicyById(policyId);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(policy, result);
+    }
+
+    @Test
+    public void testViewPoliciesByPolicyStatus() {
+        // Arrange
+        String policyStatus = "Active";
+        List<Policy> policies = new ArrayList<>();
+
+        when(policyDao.viewPoliciesByPolicyStatus((policyStatus))).thenReturn(policies);
+
+        // Act
+        List<Policy> result = policyService.viewPoliciesByPolicyStatus(policyStatus);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(policies, result);
+    }
+
+    @Test
+    public void testViewPoliciesByScheme() {
+        // Arrange
+        String schemeId = "456";
+        List<Policy> policies = new ArrayList<>();
+
+        when(policyDao.viewPoliciesByScheme((schemeId))).thenReturn(policies);
+
+        // Act
+        List<Policy> result = policyService.viewPoliciesByScheme(schemeId);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(policies, result);
+    }
+
+    @Test
+    public void testViewPoliciesByPaymentDate() {
+        // Arrange
+        LocalDate paymentDate = LocalDate.of(2023, 10, 15);
+        List<Policy> policies = new ArrayList<>();
+
+        when(policyDao.viewPoliciesByPaymentDate((paymentDate))).thenReturn(policies);
+
+        // Act
+        List<Policy> result = policyService.viewPoliciesByPaymentDate(paymentDate);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(policies, result);
+    }
+
+    @Test
+    public void testGetTotalClaimAmountPolicyWise() {
+        // Arrange
+        Map<String, Integer> claimAmount = mock(Map.class);
+
+        when(policyDao.getTotalClaimAmountPolicyWise()).thenReturn(claimAmount);
+
+        // Act
+        Map<String, Integer> result = policyService.getTotalClaimAmountPolicyWise();
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(claimAmount, result);
+    }
+
+}

@@ -1,0 +1,50 @@
+package com.example.demo;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import javax.sound.midi.VoiceStatus;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.capg.policyapp.dao.ClaimDAOImpl;
+import com.capg.policyapp.dao.PolicyDAO;
+import com.capg.policyapp.dao.PolicyDAOImpl;
+import com.capg.policyapp.exception.InvalidEntityException;
+import com.capg.policyapp.model.Claim;
+import com.capg.policyapp.service.ClaimService;
+import com.capg.policyapp.service.ClaimServiceImpl;
+import com.capg.policyapp.service.PolicyServiceImpl;
+
+@SpringBootTest
+public class ClaimServiceImplTest {
+	
+	private ClaimServiceImpl claimServiceImpl;
+	private PolicyDAOImpl policyDAOImpl;
+	
+	@BeforeEach
+	public void setUp() {
+		ClaimDAOImpl claimDAOImpl = new ClaimDAOImpl();
+		ClaimService claimService = new ClaimServiceImpl();
+		}
+	
+	@Test
+	public void testAddClaim()throws InvalidEntityException{
+		Claim claim = new Claim();
+		String policyId = "123";
+		
+		Claim addedClaim = claimService.addClaim(claim, policyId);
+		
+		assertEquals(claim, addedClaim);
+	}
+	
+	@Test
+	public void testUpdateClaimStatus()throws InvalidEntityException{
+		String claimIdString = "456";
+		String claimStatu = "Approved";
+		Claim updateClaim = new Claim();
+		
+		Claim result = claim
+	}
+}

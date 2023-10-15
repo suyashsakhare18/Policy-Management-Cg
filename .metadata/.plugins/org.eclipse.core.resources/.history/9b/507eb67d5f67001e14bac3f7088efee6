@@ -1,0 +1,91 @@
+package com.capg.policyapp.dao;
+
+import java.time.LocalDate;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.capg.policyapp.exception.InvalidEntityException;
+import com.capg.policyapp.model.Policy;
+import com.capg.policyapp.repository.PolicyRepository;
+
+public class PolicyDAOImpl implements PolicyDAO {
+
+	@Autowired
+	PolicyRepository policyRepository;
+
+	@Override
+	public Policy addPolicy(Policy policy, String customerId, String schemeId) {
+		Policy policyObj = policyRepository.saveAndFlush(policy);
+		return policyObj;
+	}
+
+	@Override
+	public Policy updatePolicyStatus(String policyId, String policyStatus) {
+		Optional<Policy> opPolicy = policyRepository.findById(policyId);
+		Policy policyObj = opPolicy.get();
+		policyObj.setPolicyStatus(policyStatus);
+		Policy policy = policyRepository.saveAndFlush(null);
+		return policy;
+	}
+
+	@Override
+	public List<Policy> viewAllPolicies() {
+		List<Policy> list = policyRepository.findAll();
+		return list;
+	}
+
+	@Override
+	public Policy viewPolicyById(String policyId) {
+		Policy policy = policyRepository.findById(policyId).get();
+		return policy;
+	}
+
+	@Override
+	public List<Policy> viewPoliciesByPolicyStatus(String policyStatus) {
+		List<Policy> list= policyRepository.findByPolicyStatus(policyStatus);
+		return list;
+	}
+
+	@Override
+	public List<Policy> viewPoliciesByScheme(String schemeId) {
+		List<Policy> po=policyRepository.findByScheme(schemeId);
+		return po;
+	}
+
+	@Override
+	public List<Policy> viewPoliciesByPaymentDate(LocalDate paymentDate) {
+		List<Policy> list = policyRepository.findByPaymentDate(paymentDate);
+		return list;
+	}
+
+	@Override
+	public Map<String,Double> getTotalClaimAmountPolicyWise() {
+		List<Policy> policylist = policyRepository.findAll();
+		Map<String, Double> claimAmountMap = new LinkedHashMap<>();
+		
+		for (Policy policy: policylist) {
+		double claimAmount = policy.getClaimList().size();
+		claimAmountMap.put(policy.getPolicyId(), claimAmount);
+	    return claimAmountMap;
+		
+	}
+
+	// TODO Auto-generated method stub return claimAmountmap; }
+
+}
+}
+///public Map<String, Integer> getPolicyCountCustomerWise() 
+//	List<Customer> customers = customerRepository.findAll();
+//    Map<String, Integer> policyCountMap = new LinkedHashMap<>();
+//
+//    for (Customer customer : customers) {
+//        int policyCount = customer.getPolicyList().size();
+//        policyCountMap.put(customer.getCustomerId(), policyCount);
+//    }
+//    return policyCountMap;

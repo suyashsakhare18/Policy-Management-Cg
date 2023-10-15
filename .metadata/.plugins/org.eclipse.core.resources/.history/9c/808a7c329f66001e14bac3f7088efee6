@@ -1,0 +1,77 @@
+package com.capg.policyapp.controller;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import org.aspectj.weaver.ast.Literal;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.capg.policyapp.model.Policy;
+import com.capg.policyapp.service.PolicyService;
+import com.capg.policyapp.service.PolicyServiceImpl;
+
+@RestController
+@RequestMapping("/policy")
+public class PolicyController {
+
+	@Autowired
+	PolicyServiceImpl policyService = new PolicyServiceImpl();
+
+	@PostMapping("/addPolicy/{customerId}/{schemeId}")
+	public String addPolicy(@PathVariable String customerId) {
+		return "addPolicy";
+	}
+
+	@PutMapping("/updatePolicyStatus/{policyId}/{policyStatus}")
+	public ResponseEntity<Policy> updatePolicyStatus(@PathVariable Policy policyId, @PathVariable String policyStatus) {
+		Policy policy = policyService.viewPolicyById(policyId);
+		return new ResponseEntity<Policy>(policy, HttpStatus.OK);
+	}
+
+	@GetMapping("/viewAllPolicies")
+	public ResponseEntity<List<Policy>> viewAllPolicies() {
+		List<Policy> policyList = policyService.viewAllPolicies();
+		return new ResponseEntity<List<Policy>>(policyList, HttpStatus.OK);
+	}
+
+	@GetMapping("/viewPolicyById/{policyId")
+	public ResponseEntity<Policy> viewPolicyById(@PathVariable String policyId) {
+		Policy policy = policyService.viewPolicyById(policyId);
+		return new ResponseEntity<Policy>(policy, HttpStatus.OK);
+	}
+
+	@GetMapping("/viewPoliciesByPolicyStatus/{policyStatus}")
+	public ResponseEntity<List<Policy>> viewPoliciesByPolicyStatus(@PathVariable String policyStatus) {
+		List<Policy> policyList = policyService.viewPoliciesByPolicyStatus(policyStatus);
+		return new ResponseEntity<List<Policy>>(policyList, HttpStatus.OK);
+	}
+
+	@GetMapping("/viewPoliciesByScheme/{schemeId}")
+	public ResponseEntity<List<Policy>> viewPoliciesByScheme(@PathVariable String schemeId) {
+		List<Policy> policyList = policyService.viewPoliciesByScheme(schemeId);
+		return new ResponseEntity<List<Policy>>(policyList, HttpStatus.OK);
+	}
+
+	@GetMapping("/viewPoliciesByPaymentDate/{paymentDate}")
+	public ResponseEntity<List<Policy>> viewPoliciesByPaymentDate(@PathVariable LocalDate paymentDate) {
+		Policy policy = policyService.viewPoliciesByPaymentDate(paymentDate);
+		return new ResponseEntity<List<Policy>>(policy, HttpStatus.OK);
+	}
+
+	@GetMapping("/getClaimAmountPolicyWise")
+	public ResponseEntity<Double> getClaimAmountPolicyWise() {
+		Double claimAmount = policyService.getTotalClaimAmountPolicyWise();
+		return new ResponseEntity<Double>(claimAmount, HttpStatus.OK);
+	}
+
+}

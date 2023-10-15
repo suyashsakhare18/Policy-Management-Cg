@@ -1,0 +1,20 @@
+package com.capg.policyapp.repository;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.capg.policyapp.model.Policy;
+
+@Repository
+public interface PolicyRepository extends JpaRepository<Policy, String>{
+
+	public List<Policy> findByPolicyStatus(String policyStatus);
+
+	public List<Policy> findByScheme(String schemeId);
+
+	void findByPaymentDate(LocalDate paymentDate);
+
+}

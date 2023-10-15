@@ -1,0 +1,69 @@
+package com.capg.policyapp.service;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.capg.policyapp.dao.PolicyDAO;
+import com.capg.policyapp.exception.InvalidEntityException;
+import com.capg.policyapp.model.Policy;
+import com.capg.policyapp.repository.PolicyRepository;
+
+@Service
+public class PolicyServiceImpl implements PolicyService {
+	
+	@Autowired
+	private PolicyDAO policyDao;
+
+	@Override
+	public Policy addPolicy(Policy policy, String customerId, String schemeId) {
+		// TODO Auto-generated method stub
+		1
+		return policyDao.addPolicy(policy, customerId, schemeId);
+	}
+
+	@Override
+	public Policy updatePolicyStatus(String policyId, String policyStatus){
+		// TODO Auto-generated method stub
+		return policyDao.updatePolicyStatus(policyId, policyStatus);
+	}
+
+	@Override
+	public List<Policy> viewAllPolicies() {
+		// TODO Auto-generated method stub
+		return policyDao.viewAllPolicies();
+	}
+
+	@Override
+	public Policy viewPolicyById(String policyId) {
+		// TODO Auto-generated method stub
+		return policyDao.viewPolicyById(policyId);
+	}
+
+	@Override
+	public List<Policy> viewPoliciesByPolicyStatus(String policyStatus) {
+		// TODO Auto-generated method stub
+		return policyDao.viewPoliciesByPolicyStatus(policyStatus);
+	}
+
+	@Override
+	public List<Policy> viewPoliciesByScheme(String schemeId) {
+		// TODO Auto-generated method stub
+		return policyDao.viewPoliciesByScheme(schemeId);
+	}
+
+	@Override
+	public List<Policy> viewPoliciesByPaymentDate(LocalDate paymentDate) {
+		// TODO Auto-generated method stub
+		return policyDao.viewPoliciesByPaymentDate(paymentDate);
+	}
+
+	@Override
+	public Map<String, Integer> getTotalClaimAmountPolicyWise() {
+		// TODO Auto-generated method stub
+		return policyDao.getTotalClaimAmountPolicyWise();
+	}
+
+}

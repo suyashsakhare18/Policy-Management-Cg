@@ -1,0 +1,28 @@
+package com.capg.policyapp.model;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Policy {
+	
+	private String policyId;
+	private LocalDate startDate;
+	private double totalPremiumAmount;
+	private double maturityAmount;
+	private int numberOfYears;
+	private String policyStatus;
+	private LocalDate closureDate;
+	private String annuityTerm;
+	private Scheme schemeObj;
+	private Customer customerObj;
+	private List<Payment> paymentList;
+	private List<Claim> claimList;
+
+}

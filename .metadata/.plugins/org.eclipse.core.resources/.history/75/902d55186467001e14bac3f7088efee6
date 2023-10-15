@@ -1,0 +1,63 @@
+package com.capg.policyapp.service;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.capg.policyapp.dao.PolicyDAO;
+import com.capg.policyapp.exception.InvalidEntityException;
+import com.capg.policyapp.model.Policy;
+import com.capg.policyapp.repository.PolicyRepository;
+
+@Service
+public class PolicyServiceImpl implements PolicyService {
+	
+	@Autowired
+	private PolicyDAO policyDao;
+
+	@Override
+	public Policy addPolicy(Policy policy, String customerId, String schemeId) {
+		return policyDao.addPolicy(policy, customerId, schemeId);
+	}
+
+	@Override
+	public Policy updatePolicyStatus(String policyId, String policyStatus){
+		return policyDao.updatePolicyStatus(policyId, policyStatus);
+	}
+
+	@Override
+	public List<Policy> viewAllPolicies() {
+		return policyDao.viewAllPolicies();
+	}
+
+	@Override
+	public Policy viewPolicyById(String policyId) {
+		return policyDao.viewPolicyById(policyId);
+	}
+
+	@Override
+	public List<Policy> viewPoliciesByPolicyStatus(String policyStatus) {
+		return policyDao.viewPoliciesByPolicyStatus(policyStatus);
+	}
+
+	@Override
+	public List<Policy> viewPoliciesByScheme(String schemeId) {
+		return policyDao.viewPoliciesByScheme(schemeId);
+	}
+
+	@Override
+	public List<Policy> viewPoliciesByPaymentDate(LocalDate paymentDate) {
+		return policyDao.viewPoliciesByPaymentDate(paymentDate);
+	}
+
+	@Override
+	public Map<String, Double> getTotalClaimAmountPolicyWise() {
+		return policyDao.getTotalClaimAmountPolicyWise();
+	}
+
+
+	
+
+}

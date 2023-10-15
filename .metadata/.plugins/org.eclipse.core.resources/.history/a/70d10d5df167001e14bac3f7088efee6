@@ -1,0 +1,119 @@
+package com.example.demo;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.sound.midi.VoiceStatus;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.capg.policyapp.dao.ClaimDAOImpl;
+import com.capg.policyapp.dao.PolicyDAO;
+import com.capg.policyapp.dao.PolicyDAOImpl;
+import com.capg.policyapp.exception.InvalidEntityException;
+import com.capg.policyapp.model.Claim;
+import com.capg.policyapp.service.ClaimService;
+import com.capg.policyapp.service.ClaimServiceImpl;
+import com.capg.policyapp.service.PolicyServiceImpl;
+
+@SpringBootTest
+public class ClaimServiceImplTest {
+	
+	
+	private ClaimServiceImpl claimServiceImpl;
+	
+	
+	private ClaimDAOImpl claimDAOImpl;
+	
+	@BeforeEach
+	public void setUp() {
+		ClaimDAOImpl claimDAOImpl = new ClaimDAOImpl();
+		ClaimService claimService = new ClaimServiceImpl();
+		}
+	
+	@Test
+	public void testAddClaim()throws InvalidEntityException{
+		Claim claim = new Claim();
+		String policyId = "123";
+		
+		Claim addedClaim = claimServiceImpl.addClaim(claim, policyId);
+		
+		assertEquals(claim, addedClaim);
+	}
+	
+	@Test
+	public void testViewALlClaims()throws InvalidEntityException{
+		List<Claim> claims = new ArrayList<>();
+		
+		List<Claim> result = claimServiceImpl.viewAllClaims();
+		
+		assertEquals(claims, result);
+	}
+	
+	@Test
+	public void testViewClaimById()throws InvalidEntityException {
+		String claimId = "789";
+		Claim claim = new Claim();
+		
+		when(claimDAOImpl.viewClaimById(claimId)).thenReturn(claim);
+		
+		Claim result = claimServiceImpl.viewClaimById(claimId);
+		assertEquals(claim, result);
+	}
+	
+	@Test
+    public void testGetClaimsByMonthAndYear() {
+        int month = 10;
+        int year = 2023;
+        List<Claim> claims = new ArrayList<>();
+
+        when(claimDAOImpl.getClaimsByMonthAndYear(month, year)).thenReturn(claims);
+
+        List<Claim> result = claimServiceImpl.getClaimsByMonthAndYear(month, year);
+        assertEquals(claims, result);
+    }
+	
+	@Test
+    public void testViewClaimsByPolicy() {
+    
+        String policyId = "123";
+        List<Claim> claims = new ArrayList<>();
+
+        when(claimDAOImpl.viewClaimsByPolicy(policyId)).thenReturn(claims);
+
+        // Assert
+        List<Claim> result = claimServiceImpl.viewClaimsByPolicy(policyId);
+        assertEquals(claims, result);
+    }
+	
+	 @Test
+	    public void testViewClaimsByCustomer() {
+	        String customerId = "456";
+	        List<Claim> claims = new ArrayList<>();
+
+	        when(claimDAOImpl.viewClaimsByCustomer(customerId)).thenReturn(claims);
+
+	        List<Claim> result = claimServiceImpl.viewClaimsByCustomer(customerId);
+	        assertEquals(claims, result);
+	    }
+	 
+	 @Test
+	    public void testGetClaimAmountPolicyWise() {
+	        
+	        Map<String, Integer> claimAmount = new HashMap<>();
+
+	        // Act
+	        when(claimDAOImpl.getClaimAmountPolicyWise()).thenReturn(claimAmount);
+
+	        // Assert
+	        Map<String, Integer> result = claimServiceImpl.getClaimAmountPolicyWise();
+	        assertEquals(claimAmount, result);
+	    }
+}

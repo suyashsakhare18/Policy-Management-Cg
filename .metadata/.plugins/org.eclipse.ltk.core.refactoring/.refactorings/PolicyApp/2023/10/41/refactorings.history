@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename compilation unit &apos;com.example.demo.PolicyServiceImplTest.java&apos; to &apos;ClaimServiceImplTest.java&apos;&#x0D;&#x0A;- Original project: &apos;PolicyApp&apos;&#x0D;&#x0A;- Original element: &apos;com.example.demo.PolicyServiceImplTest.java&apos;&#x0D;&#x0A;- Renamed element: &apos;com.example.demo.ClaimServiceImplTest.java&apos;" description="Rename compilation unit &apos;PolicyServiceImplTest.java&apos;" flags="2" id="org.eclipse.jdt.ui.rename.compilationunit" input="/src\/test\/java=/optional=/true=/=/maven.pomderived=/true=/=/test=/true=/&lt;com.example.demo{PolicyServiceImplTest.java" name="ClaimServiceImplTest.java" references="false" stamp="1696992173286" version="1.0"/>
+</session>

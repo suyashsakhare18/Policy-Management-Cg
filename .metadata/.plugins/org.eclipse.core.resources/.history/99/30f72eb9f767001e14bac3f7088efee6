@@ -1,0 +1,141 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import com.capg.policyapp.dao.PolicyDAO;
+import com.capg.policyapp.exception.InvalidEntityException;
+import com.capg.policyapp.model.Policy;
+import com.capg.policyapp.service.PolicyServiceImpl;
+
+public class PolicyServiceImplTest {
+
+    private PolicyServiceImpl policyService;
+    private PolicyDAO policyDAO;
+
+    @BeforeEach
+    public void setup() {
+        policyDAO = mock(PolicyDAO.class);
+        policyService = new PolicyServiceImpl(policyDAO);
+    }
+
+    @Test
+    public void testAddPolicy() throws InvalidEntityException {
+        // Arrange
+        Policy policy = new Policy();
+        String customerId = "123";
+        String schemeId = "456";
+        when(policyDAO.addPolicy(policy, customerId, schemeId)).thenReturn(policy);
+
+        // Act
+        Policy addedPolicy = policyService.addPolicy(policy, customerId, schemeId);
+
+        // Assert
+        assertEquals(policy, addedPolicy);
+    }
+
+    @Test
+    public void testUpdatePolicyStatus() throws InvalidEntityException {
+        // Arrange
+        String policyId = "789";
+        String policyStatus = "Active";
+        Policy updatedPolicy = new Policy();
+        when(policyDAO.updatePolicyStatus(policyId, policyStatus)).thenReturn(updatedPolicy);
+
+        // Act
+        Policy result = policyService.updatePolicyStatus(policyId, policyStatus);
+
+        // Assert
+        assertEquals(updatedPolicy, result);
+    }
+
+    @Test
+    public void testViewAllPolicies() {
+        // Arrange
+        List<Policy> policies = new ArrayList<>();
+        when(policyDAO.viewAllPolicies()).thenReturn(policies);
+
+        // Act
+        List<Policy> result = policyService.viewAllPolicies();
+
+        // Assert
+        assertEquals(policies, result);
+    }
+
+    @Test
+    public void testViewPolicyById() throws InvalidEntityException {
+        // Arrange
+        String policyId = "123";
+        Policy policy = new Policy();
+        when(policyDAO.viewPolicyById(policyId)).thenReturn(policy);
+
+        // Act
+        Policy result = policyService.viewPolicyById(policyId);
+
+        // Assert
+        assertEquals(policy, result);
+    }
+
+    @Test
+    public void testViewPoliciesByPolicyStatus() {
+        // Arrange
+        String policyStatus = "Active";
+        List<Policy> policies = new ArrayList<>();
+        when(policyDAO.viewPoliciesByPolicyStatus(policyStatus)).thenReturn(policies);
+
+        // Act
+        List<Policy> result = policyService.viewPoliciesByPolicyStatus(policyStatus);
+
+        // Assert
+        assertEquals(policies, result);
+    }
+
+    @Test
+    public void testViewPoliciesByScheme() {
+        // Arrange
+        String schemeId = "456";
+        List<Policy> policies = new ArrayList<>();
+        when(policyDAO.viewPoliciesByScheme(schemeId)).thenReturn(policies);
+
+        // Act
+        List<Policy> result = policyService.viewPoliciesByScheme(schemeId);
+
+        // Assert
+        assertEquals(policies, result);
+    }
+
+    @Test
+    public void testViewPoliciesByPaymentDate() {
+        // Arrange
+        LocalDate paymentDate = LocalDate.now();
+        List<Policy> policies = new ArrayList<>();
+        when(policyDAO.viewPoliciesByPaymentDate(paymentDate)).thenReturn(policies);
+
+        // Act
+        List<Policy> result = policyService.viewPoliciesByPaymentDate(paymentDate);
+
+        // Assert
+        assertEquals(policies, result);
+    }
+
+    @Test
+    public void testGetTotalClaimAmountPolicyWise() {
+        // Arrange
+        Map<String, Integer> claimAmount = new HashMap<>();
+        when(policyDAO.getTotalClaimAmountPolicyWise()).thenReturn(claimAmount);
+
+        // Act
+        Map<String, Integer> result = policyService.getTotalClaimAmountPolicyWise();
+
+        // Assert
+        assertEquals(claimAmount, result);
+    }
+}

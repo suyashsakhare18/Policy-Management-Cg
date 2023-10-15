@@ -1,0 +1,107 @@
+
+package com.capg.policyapp.model;
+
+import java.time.LocalDate;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "claim")
+public class Claim {
+
+    @Id
+    private String claimId;
+    private LocalDate dateOfClaim;
+    private String claimDescription;
+    private String claimStatus;
+    private double claimAmount;
+
+    @ManyToOne
+    @JoinColumn(name = "policy_id")
+    private Policy policy;
+    
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
+	public String getClaimId() {
+		return claimId;
+	}
+
+	public void setClaimId(String claimId) {
+		this.claimId = claimId;
+	}
+
+	public LocalDate getDateOfClaim() {
+		return dateOfClaim;
+	}
+
+	public void setDateOfClaim(LocalDate dateOfClaim) {
+		this.dateOfClaim = dateOfClaim;
+	}
+
+	public String getClaimDescription() {
+		return claimDescription;
+	}
+
+	public void setClaimDescription(String claimDescription) {
+		this.claimDescription = claimDescription;
+	}
+
+	public String getClaimStatus() {
+		return claimStatus;
+	}
+
+	public void setClaimStatus(String claimStatus) {
+		this.claimStatus = claimStatus;
+	}
+
+	public double getClaimAmount() {
+		return claimAmount;
+	}
+
+	public void setClaimAmount(double claimAmount) {
+		this.claimAmount = claimAmount;
+	}
+
+	public Policy getPolicy() {
+		return policy;
+	}
+
+	public void setPolicy(Policy policy) {
+		this.policy = policy;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	public Claim(String claimId, LocalDate dateOfClaim, String claimDescription, String claimStatus, double claimAmount,
+			Policy policy, Customer customer) {
+		super();
+		this.claimId = claimId;
+		this.dateOfClaim = dateOfClaim;
+		this.claimDescription = claimDescription;
+		this.claimStatus = claimStatus;
+		this.claimAmount = claimAmount;
+		this.policy = policy;
+		this.customer = customer;
+	}
+
+	@Override
+	public String toString() {
+		return "Claim [claimId=" + claimId + ", dateOfClaim=" + dateOfClaim + ", claimDescription=" + claimDescription
+				+ ", claimStatus=" + claimStatus + ", claimAmount=" + claimAmount + ", policy=" + policy + ", customer="
+				+ customer + "]";
+	}
+
+	
+}

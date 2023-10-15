@@ -1,0 +1,5 @@
+package com.capg.policyapp.controller;
+
+public class PolicyController {
+
+}

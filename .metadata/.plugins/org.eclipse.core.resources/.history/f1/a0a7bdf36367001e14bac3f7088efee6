@@ -1,0 +1,21 @@
+package com.capg.policyapp.dao;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
+
+import com.capg.policyapp.exception.InvalidEntityException;
+import com.capg.policyapp.model.Policy;
+
+public interface PolicyDAO {
+	
+	public Policy addPolicy (Policy policy, String customerId, String schemeId);  
+	public Policy updatePolicyStatus (String policyId, String policyStatus);
+	public List<Policy> viewAllPolicies();
+	public Policy viewPolicyById (String policyId);
+	public List<Policy> viewPoliciesByPolicyStatus(String policyStatus);
+	public List<Policy> viewPoliciesByScheme (String schemeId);
+	public List<Policy> viewPoliciesByPaymentDate (LocalDate paymentDate);
+	public Map<String, Double> getTotalClaimAmountPolicyWise(); 
+
+}

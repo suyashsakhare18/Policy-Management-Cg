@@ -1,0 +1,5 @@
+package com.capg.policyapp.service;
+
+public class SchemeServiceImpl {
+
+}

@@ -1,0 +1,82 @@
+package com.example.demo;
+
+import static org.mockito.Mockito.*;
+
+import java.util.Map;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+
+import com.capg.policyapp.dao.ClaimDAOImpl;
+import com.capg.policyapp.exception.InvalidEntityException;
+import com.capg.policyapp.model.Claim;
+
+
+public class ClaimServiceImplTest {
+
+    @InjectMocks
+    private ClaimServiceImplTest claimService;
+
+    @Mock
+    private ClaimDAOImpl claimDAOImpl;
+
+    @Test
+    public void testAddClaim() throws InvalidEntityException {
+        // Arrange
+        Claim claim = new Claim();
+        String policyId = "123";
+
+        when(claimDAOImpl.addClaim(eq(claim), eq(policyId))).thenReturn(claim);
+
+        // Act
+        Claim addedClaim = claimService.addClaim(claim, policyId);
+
+        // Assert
+        assertEquals(claim, addedClaim);
+    }
+
+    @Test
+    public void testUpdateClaimStatus() throws InvalidEntityException {
+        // Arrange
+        String claimId = "456";
+        String claimStatus = "Approved";
+        Claim updatedClaim = new Claim();
+
+        when(claimDAOImpl.updateClaimStatus(eq(claimId), eq(claimStatus))).thenReturn(updatedClaim);
+
+        // Act
+        Claim result = claimService.updateClaimStatus(claimId, claimStatus);
+
+        // Assert
+        assertEquals(updatedClaim, result);
+    }
+
+    @Test
+    public void testViewAllClaims() {
+        // Arrange
+        List<Claim> claims = new ArrayList<>();
+        when(claimDAOImpl.viewAllClaims()).thenReturn(claims);
+
+        // Act
+        List<Claim> result = claimService.viewAllClaims();
+
+        // Assert
+        assertEquals(claims, result);
+    }
+
+    // Add similar tests for other methods like viewClaimById, getClaimsByMonthAndYear, etc.
+
+    @Test
+    public void testGetClaimAmountPolicyWise() {
+        // Arrange
+        Map<String, Integer> claimAmount = new HashMap<>();
+        when(claimDAOImpl.getClaimAmountPolicyWise()).thenReturn(claimAmount);
+
+        // Act
+        Map<String, Integer> result = claimService.getClaimAmountPolicyWise();
+
+        // Assert
+        assertEquals(claimAmount, result);
+    }
+}

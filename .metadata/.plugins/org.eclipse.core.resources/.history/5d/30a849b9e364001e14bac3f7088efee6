@@ -1,0 +1,5 @@
+package com.capg.policyapp.model;
+
+public class Policy {
+
+}

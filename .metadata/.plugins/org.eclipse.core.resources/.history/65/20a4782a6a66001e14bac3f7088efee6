@@ -1,0 +1,67 @@
+package com.capg.policyapp.dao;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.capg.policyapp.exception.InvalidEntityException;
+import com.capg.policyapp.model.Policy;
+import com.capg.policyapp.repository.PolicyRepository;
+
+public class PolicyDAOImpl implements PolicyDAO{
+	
+	@Autowired
+	PolicyRepository policyRepository;
+
+	@Override
+	public Policy addPolicy(Policy policy, String customerId, String schemeId)throws InvalidEntityException {
+		Policy policy1 = policyRepository.saveAndFlush(policy1);
+		// TODO Auto-generated method stub
+		return policy1;
+	}
+
+	@Override
+	public Policy updatePolicyStatus(String policyId, String policyStatus) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Policy> viewAllPolicies() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Policy viewPolicyById(String policyId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Policy> viewPoliciesByPolicyStatus(String policyStatus) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Policy> viewPoliciesByScheme(String schemeId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Policy> viewPoliciesByPaymentDate(LocalDate paymentDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Map<String, Integer> getTotalClaimAmountPolicyWise() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
